@@ -37,7 +37,7 @@ class Mastermind
   end
 
   def draw_board
-    puts "-------MASTERMIND--------"
+    puts "-----------MASTERMIND------------"
     i = 0
     12.times {
       puts "[#{@tip_element[0+i]}][#{@tip_element[1+i]}][#{@tip_element[2+i]}][#{@tip_element[3+i]}] (#{@code_element[0+i]})(#{@code_element[1+i]})(#{@code_element[2+i]})(#{@code_element[3+i]})"
@@ -99,7 +99,9 @@ class Mastermind
         check_for_code_break
       end
     end
-    puts "\nYou failed to break the code!\n\nThe code was: #{@code}"
+    if @victory == false
+      puts "\nYou failed to break the code!\n\nThe code was: #{@code}"
+    end
   end
 
   def check_for_correct_guesses
