@@ -4,6 +4,7 @@ class Mastermind
 
   def initialize
     puts "Welcome to Mastermind!"
+    @victory = false
     ask_role
     set_board
     draw_board
@@ -17,10 +18,10 @@ class Mastermind
     if role == "1"
       puts "Ok! You are going to be the Code Maker!"
     elsif role == "2"
-      puts "Ok! You are going to be the Code Breaker!\nThere are 6 colors to choose from: RED, YELLOW, BLUE, GREEN, WHITE and BLACK.
+      puts "\nOk! You are going to be the Code Breaker!\nThere are 6 colors to choose from: RED, YELLOW, BLUE, GREEN, WHITE and BLACK.
       \nTo guess you must type the name of the color you want. If you guess the right colors in the 4 spaces of the code, you win!
-      \nAfter you guess all the colors, the Code Maker will give you feedback.\nIf you get the color and the position right it will put a R on the left."
-      puts "If you guess the color right but the wrong position it will put a W.\nIf you don't get any color right it will stay blank.\n\n"
+      \nAfter you guess all the colors, the Code Maker will give you feedback.\nIf you get the color and the position right it will put an \"X\" on the left."
+      puts "If you guess the color right but the wrong position it will put an \"O\".\nIf you don't get any color right it will stay blank.\nBeware: They will not necessarily appear in order!\n\n"
     else
       puts "Input a valid number!"
       ask_role
@@ -28,6 +29,8 @@ class Mastermind
   end
 
   def set_board
+    @tip_element = []
+    48.times { @tip_element << " " }
     @code_element = []
     48.times { @code_element << " " }
     @turn = 1
@@ -35,18 +38,18 @@ class Mastermind
 
   def draw_board
     puts "-------MASTERMIND--------"
-    puts "[ ][ ][ ][ ] (#{@code_element[0]})(#{@code_element[1]})(#{@code_element[2]})(#{@code_element[3]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[4]})(#{@code_element[5]})(#{@code_element[6]})(#{@code_element[7]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[8]})(#{@code_element[9]})(#{@code_element[10]})(#{@code_element[11]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[12]})(#{@code_element[13]})(#{@code_element[14]})(#{@code_element[15]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[16]})(#{@code_element[17]})(#{@code_element[18]})(#{@code_element[19]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[20]})(#{@code_element[21]})(#{@code_element[22]})(#{@code_element[23]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[24]})(#{@code_element[25]})(#{@code_element[26]})(#{@code_element[27]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[28]})(#{@code_element[29]})(#{@code_element[30]})(#{@code_element[31]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[32]})(#{@code_element[33]})(#{@code_element[34]})(#{@code_element[35]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[36]})(#{@code_element[37]})(#{@code_element[38]})(#{@code_element[39]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[40]})(#{@code_element[41]})(#{@code_element[42]})(#{@code_element[43]})"
-    puts "[ ][ ][ ][ ] (#{@code_element[44]})(#{@code_element[45]})(#{@code_element[46]})(#{@code_element[47]})"
+    puts "[#{@tip_element[0]}][#{@tip_element[1]}][#{@tip_element[2]}][#{@tip_element[3]}] (#{@code_element[0]})(#{@code_element[1]})(#{@code_element[2]})(#{@code_element[3]})"
+    puts "[#{@tip_element[4]}][#{@tip_element[5]}][#{@tip_element[6]}][#{@tip_element[7]}] (#{@code_element[4]})(#{@code_element[5]})(#{@code_element[6]})(#{@code_element[7]})"
+    puts "[#{@tip_element[8]}][#{@tip_element[9]}][#{@tip_element[10]}][#{@tip_element[11]}] (#{@code_element[8]})(#{@code_element[9]})(#{@code_element[10]})(#{@code_element[11]})"
+    puts "[#{@tip_element[12]}][#{@tip_element[13]}][#{@tip_element[14]}][#{@tip_element[15]}] (#{@code_element[12]})(#{@code_element[13]})(#{@code_element[14]})(#{@code_element[15]})"
+    puts "[#{@tip_element[16]}][#{@tip_element[17]}][#{@tip_element[18]}][#{@tip_element[19]}] (#{@code_element[16]})(#{@code_element[17]})(#{@code_element[18]})(#{@code_element[19]})"
+    puts "[#{@tip_element[20]}][#{@tip_element[21]}][#{@tip_element[22]}][#{@tip_element[23]}] (#{@code_element[20]})(#{@code_element[21]})(#{@code_element[22]})(#{@code_element[23]})"
+    puts "[#{@tip_element[24]}][#{@tip_element[25]}][#{@tip_element[26]}][#{@tip_element[27]}] (#{@code_element[24]})(#{@code_element[25]})(#{@code_element[26]})(#{@code_element[27]})"
+    puts "[#{@tip_element[28]}][#{@tip_element[29]}][#{@tip_element[30]}][#{@tip_element[31]}] (#{@code_element[28]})(#{@code_element[29]})(#{@code_element[30]})(#{@code_element[31]})"
+    puts "[#{@tip_element[32]}][#{@tip_element[33]}][#{@tip_element[34]}][#{@tip_element[35]}] (#{@code_element[32]})(#{@code_element[33]})(#{@code_element[34]})(#{@code_element[35]})"
+    puts "[#{@tip_element[36]}][#{@tip_element[37]}][#{@tip_element[38]}][#{@tip_element[39]}] (#{@code_element[36]})(#{@code_element[37]})(#{@code_element[38]})(#{@code_element[39]})"
+    puts "[#{@tip_element[40]}][#{@tip_element[41]}][#{@tip_element[42]}][#{@tip_element[43]}] (#{@code_element[40]})(#{@code_element[41]})(#{@code_element[42]})(#{@code_element[43]})"
+    puts "[#{@tip_element[44]}][#{@tip_element[45]}][#{@tip_element[46]}][#{@tip_element[47]}] (#{@code_element[44]})(#{@code_element[45]})(#{@code_element[46]})(#{@code_element[47]})"
     # i = 0
     # 12.times {
     #   puts "[ ][ ][ ][ ] (#{@code_element[0+i]})(#{@code_element[1+i]})(#{@code_element[2+i]})(#{@code_element[3+i]})"
@@ -58,73 +61,101 @@ class Mastermind
     colors = ["RED", "YELLOW", "BLUE", "GREEN", "WHITE", "BLACK"]
     @code = []
     4.times { @code << colors.sample }
+    puts "Code: #{@code}"
   end
 
   def guess_code
-    puts "Type the color you want to guess:\n"
     i = 0
-    @every_4_guesses = []
+    @turn_guesses = []
     @guess_feedback = []
-    48.times {
+    while @turn < 11 && @victory == false
+      puts "Type the color you want to guess:\n"
       guessed_color = gets.chomp.upcase
       case guessed_color
       when "RED"
         @code_element[i] = "R"
-        @every_4_guesses << "RED"
-        guess_feedback(guessed_color)
+        @turn_guesses << "RED"
         draw_board
       when "YELLOW"
         @code_element[i] = "Y"
-        @every_4_guesses << "YELLOW"
-        guess_feedback(guessed_color)
+        @turn_guesses << "YELLOW"
         draw_board
       when "BLUE"
         @code_element[i] = "B"
-        @every_4_guesses << "BLUE"
-        guess_feedback(guessed_color)
+        @turn_guesses << "BLUE"
         draw_board
       when "GREEN"
         @code_element[i] = "G"
-        @every_4_guesses << "GREEN"
-        guess_feedback(guessed_color)
+        @turn_guesses << "GREEN"
         draw_board
       when "WHITE"
         @code_element[i] = "W"
-        @every_4_guesses << "WHITE"
-        guess_feedback(guessed_color)
+        @turn_guesses << "WHITE"
         draw_board
       when "BLACK"
         @code_element[i] = "B"
-        @every_4_guesses << "BLACK"
-        guess_feedback(guessed_color)
+        @turn_guesses << "BLACK"
         draw_board
       else
         puts "Type a valid color name!"
+        i -= 1
       end
-      puts "Code: #{@code}"
-      puts "Board Array Element: #{i}"
-      puts "Guesses: #{@every_4_guesses}"
-      puts "Guess Feedback: #{@guess_feedback}"
-      puts "Turn: #{@turn}"
+      # puts "Board Array Element: #{i}"
+      # puts "Code: #{@code}"
+      # puts "Guesses: #{@turn_guesses}"
+      # puts "Turn: #{@turn}"
       i += 1
       if i % 4 == 0
-        @every_4_guesses = []
+        check_for_correct_guesses
+        @turn_guesses = []
         @guess_feedback = []
         @turn += 1
+        draw_board
+        check_for_code_break
       end
-    }
+    end
   end
 
-  def guess_feedback(guessed_color)
-    if @code[@every_4_guesses.length - 1] == @every_4_guesses[@every_4_guesses.length - 1]
-      @guess_feedback << "R"
-    else
-      @code.each { |el|
-        if el == @every_4_guesses[@every_4_guesses.length - 1]
-          @guess_feedback << "W"
-          break
+  def check_for_correct_guesses
+    temp_code_array = @code.map(&:clone)
+    temp_turn_guesses_array = @turn_guesses.map(&:clone)
+    @code.each_index { |i|
+      if @code[i] == @turn_guesses[i]
+        @guess_feedback << "X"
+        temp_code_array[i] = " "
+        temp_turn_guesses_array[i] = " "
+      end
+    }
+    temp_code_array.each { |el|
+      temp_turn_guesses_array.each_with_index { |el2, idx|
+        if el == el2 && el != " "
+          @guess_feedback << "O"
+          temp_turn_guesses_array.delete_at(idx)
         end
       }
+    }
+    while @guess_feedback.length < 4
+      @guess_feedback << " "
+    end
+    @guess_feedback = @guess_feedback.shuffle
+    first_tip_element_of_row = @turn * 4 - 4
+    # last_tip_element_of_row = @turn * 4 - 1
+    i = 0
+    4.times {
+      @tip_element[first_tip_element_of_row + i] = @guess_feedback[i]
+      i += 1
+    }
+    # puts "Guess Feedback: #{@guess_feedback}"
+    # if @guess_feedback.all? { |el| el == "R" }
+    #   puts "You broke the code!"
+    #   @victory = true
+    # end
+  end
+
+  def check_for_code_break
+    if @guess_feedback.all? { |el| el == "X" }
+      puts "\nYou broke the code! You win!\nDo you want to play as the Code Maker now?"
+      @victory = true
     end
   end
 end
