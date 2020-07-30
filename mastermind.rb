@@ -19,9 +19,9 @@ class Mastermind
       puts "Ok! You are going to be the Code Maker!"
     elsif role == "2"
       puts "\nOk! You are going to be the Code Breaker!\nThere are 6 colors to choose from: RED, YELLOW, BLUE, GREEN, WHITE and BLACK.
-      \nTo guess you must type the name of the color you want. If you guess the right colors in the 4 spaces of the code, you win!
-      \nAfter you guess all the colors, the Code Maker will give you feedback.\nIf you get the color and the position right it will put an \"X\" on the left."
-      puts "If you guess the color right but the wrong position it will put an \"O\".\nIf you don't get any color right it will stay blank.\nBeware: They will not necessarily appear in order!\n\n"
+      \nTo guess you must type the name of the color you want.\nIf you guess the right colors in the 4 spaces of the code, you win!
+      \nAfter you guess all the colors, the Code Maker will give you feedback.\nIf you get both the color and the position right it will put an \"X\" on the left."
+      puts "If you guess the color right but in the wrong position it will put an \"O\".\nIf you don't get any color right it will stay blank.\nBeware: They will not necessarily appear in order!\n\n"
     else
       puts "Input a valid number!"
       ask_role
@@ -52,8 +52,8 @@ class Mastermind
     puts "[#{@tip_element[44]}][#{@tip_element[45]}][#{@tip_element[46]}][#{@tip_element[47]}] (#{@code_element[44]})(#{@code_element[45]})(#{@code_element[46]})(#{@code_element[47]})"
     # i = 0
     # 12.times {
-    #   puts "[ ][ ][ ][ ] (#{@code_element[0+i]})(#{@code_element[1+i]})(#{@code_element[2+i]})(#{@code_element[3+i]})"
-    #   i = 4
+    #   puts "[#{@tip_element[0+i]}][#{@tip_element[1+i]}][#{@tip_element[2+i]}][#{@tip_element[3+i]}] (#{@code_element[0+i]})(#{@code_element[1+i]})(#{@code_element[2+i]})(#{@code_element[3+i]})"
+    #   i += 4
     # }
   end
 
@@ -68,7 +68,7 @@ class Mastermind
     i = 0
     @turn_guesses = []
     @guess_feedback = []
-    while @turn < 11 && @victory == false
+    while @turn < 13 && @victory == false
       puts "Type the color you want to guess:\n"
       guessed_color = gets.chomp.upcase
       case guessed_color
@@ -107,9 +107,6 @@ class Mastermind
       i += 1
       if i % 4 == 0
         check_for_correct_guesses
-        @turn_guesses = []
-        @guess_feedback = []
-        @turn += 1
         draw_board
         check_for_code_break
       end
@@ -138,24 +135,30 @@ class Mastermind
       @guess_feedback << " "
     end
     @guess_feedback = @guess_feedback.shuffle
-    first_tip_element_of_row = @turn * 4 - 4
-    # last_tip_element_of_row = @turn * 4 - 1
+    first_tip_element_of_row = @turn*4-4
+    # last_tip_element_of_row = @turn*4-1
     i = 0
     4.times {
       @tip_element[first_tip_element_of_row + i] = @guess_feedback[i]
       i += 1
     }
     # puts "Guess Feedback: #{@guess_feedback}"
-    # if @guess_feedback.all? { |el| el == "R" }
-    #   puts "You broke the code!"
-    #   @victory = true
-    # end
   end
 
   def check_for_code_break
-    if @guess_feedback.all? { |el| el == "X" }
+    right_guesses = 0
+    @guess_feedback.each { |el|
+      if el == "X"
+        right_guesses += 1
+      end
+    }
+    if right_guesses > 3
       puts "\nYou broke the code! You win!\nDo you want to play as the Code Maker now?"
       @victory = true
+    else
+      @turn_guesses = []
+      @guess_feedback = []
+      @turn += 1
     end
   end
 end
