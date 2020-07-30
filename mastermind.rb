@@ -32,36 +32,24 @@ class Mastermind
     @tip_element = []
     48.times { @tip_element << " " }
     @code_element = []
-    48.times { @code_element << " " }
+    48.times { @code_element << "   " }
     @turn = 1
   end
 
   def draw_board
     puts "-------MASTERMIND--------"
-    puts "[#{@tip_element[0]}][#{@tip_element[1]}][#{@tip_element[2]}][#{@tip_element[3]}] (#{@code_element[0]})(#{@code_element[1]})(#{@code_element[2]})(#{@code_element[3]})"
-    puts "[#{@tip_element[4]}][#{@tip_element[5]}][#{@tip_element[6]}][#{@tip_element[7]}] (#{@code_element[4]})(#{@code_element[5]})(#{@code_element[6]})(#{@code_element[7]})"
-    puts "[#{@tip_element[8]}][#{@tip_element[9]}][#{@tip_element[10]}][#{@tip_element[11]}] (#{@code_element[8]})(#{@code_element[9]})(#{@code_element[10]})(#{@code_element[11]})"
-    puts "[#{@tip_element[12]}][#{@tip_element[13]}][#{@tip_element[14]}][#{@tip_element[15]}] (#{@code_element[12]})(#{@code_element[13]})(#{@code_element[14]})(#{@code_element[15]})"
-    puts "[#{@tip_element[16]}][#{@tip_element[17]}][#{@tip_element[18]}][#{@tip_element[19]}] (#{@code_element[16]})(#{@code_element[17]})(#{@code_element[18]})(#{@code_element[19]})"
-    puts "[#{@tip_element[20]}][#{@tip_element[21]}][#{@tip_element[22]}][#{@tip_element[23]}] (#{@code_element[20]})(#{@code_element[21]})(#{@code_element[22]})(#{@code_element[23]})"
-    puts "[#{@tip_element[24]}][#{@tip_element[25]}][#{@tip_element[26]}][#{@tip_element[27]}] (#{@code_element[24]})(#{@code_element[25]})(#{@code_element[26]})(#{@code_element[27]})"
-    puts "[#{@tip_element[28]}][#{@tip_element[29]}][#{@tip_element[30]}][#{@tip_element[31]}] (#{@code_element[28]})(#{@code_element[29]})(#{@code_element[30]})(#{@code_element[31]})"
-    puts "[#{@tip_element[32]}][#{@tip_element[33]}][#{@tip_element[34]}][#{@tip_element[35]}] (#{@code_element[32]})(#{@code_element[33]})(#{@code_element[34]})(#{@code_element[35]})"
-    puts "[#{@tip_element[36]}][#{@tip_element[37]}][#{@tip_element[38]}][#{@tip_element[39]}] (#{@code_element[36]})(#{@code_element[37]})(#{@code_element[38]})(#{@code_element[39]})"
-    puts "[#{@tip_element[40]}][#{@tip_element[41]}][#{@tip_element[42]}][#{@tip_element[43]}] (#{@code_element[40]})(#{@code_element[41]})(#{@code_element[42]})(#{@code_element[43]})"
-    puts "[#{@tip_element[44]}][#{@tip_element[45]}][#{@tip_element[46]}][#{@tip_element[47]}] (#{@code_element[44]})(#{@code_element[45]})(#{@code_element[46]})(#{@code_element[47]})"
-    # i = 0
-    # 12.times {
-    #   puts "[#{@tip_element[0+i]}][#{@tip_element[1+i]}][#{@tip_element[2+i]}][#{@tip_element[3+i]}] (#{@code_element[0+i]})(#{@code_element[1+i]})(#{@code_element[2+i]})(#{@code_element[3+i]})"
-    #   i += 4
-    # }
+    i = 0
+    12.times {
+      puts "[#{@tip_element[0+i]}][#{@tip_element[1+i]}][#{@tip_element[2+i]}][#{@tip_element[3+i]}] (#{@code_element[0+i]})(#{@code_element[1+i]})(#{@code_element[2+i]})(#{@code_element[3+i]})"
+      i += 4
+    }
   end
 
   def generate_code
     colors = ["RED", "YELLOW", "BLUE", "GREEN", "WHITE", "BLACK"]
     @code = []
     4.times { @code << colors.sample }
-    puts "Code: #{@code}"
+    # puts "Code: #{@code}"
   end
 
   def guess_code
@@ -73,27 +61,27 @@ class Mastermind
       guessed_color = gets.chomp.upcase
       case guessed_color
       when "RED"
-        @code_element[i] = "R"
+        @code_element[i] = "RED"
         @turn_guesses << "RED"
         draw_board
       when "YELLOW"
-        @code_element[i] = "Y"
+        @code_element[i] = "YEL"
         @turn_guesses << "YELLOW"
         draw_board
       when "BLUE"
-        @code_element[i] = "B"
+        @code_element[i] = "BLU"
         @turn_guesses << "BLUE"
         draw_board
       when "GREEN"
-        @code_element[i] = "G"
+        @code_element[i] = "GRE"
         @turn_guesses << "GREEN"
         draw_board
       when "WHITE"
-        @code_element[i] = "W"
+        @code_element[i] = "WHI"
         @turn_guesses << "WHITE"
         draw_board
       when "BLACK"
-        @code_element[i] = "B"
+        @code_element[i] = "BLA"
         @turn_guesses << "BLACK"
         draw_board
       else
@@ -111,6 +99,7 @@ class Mastermind
         check_for_code_break
       end
     end
+    puts "\nYou failed to break the code!\n\nThe code was: #{@code}"
   end
 
   def check_for_correct_guesses
