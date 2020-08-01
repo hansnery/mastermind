@@ -1,13 +1,10 @@
-if @code[@every_4_guesses.length - 1] == @every_4_guesses[@every_4_guesses.length - 1]
-      @guess_feedback << "R"
-    else
-      i = 0
-      temp_code.each { |el|
-        if temp_code[i] == @every_4_guesses[@every_4_guesses.length - 1]
-          temp_code.pop()
-          @guess_feedback << "W"
-          break
-        end
-        i += 1
-      }
-    end
+if @last_correct_guesses > 0
+      #   a = @last_correct_guesses
+      #   b = 0
+      #   while a > 0
+      #     guessed_color = last_guess[b]
+      #     a -= 1
+      #     b += 1
+      #     puts @last_correct_guesses
+      #   end
+      # else
